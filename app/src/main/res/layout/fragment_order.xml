@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragment.OrderFragment"
+    android:background="#fff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:background="#332C98"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="?attr/textColorToolbar">
+
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/tvPencarian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFF"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="@string/sedang_mencari"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffff"
+                android:scrollbars="vertical"
+                android:visibility="invisible" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabsHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="#9D99DC"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="#fff"
+                app:tabTextColor="#BCC7C7C7" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/frame_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>

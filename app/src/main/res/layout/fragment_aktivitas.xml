@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainFragment.AktivitasFragment"
+    android:background="?attr/backgroundColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/cardBackground">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:background="#332C98"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="?attr/textColorToolbar"
+                app:subtitleTextColor="?attr/textSubColor">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Activity"
+                    android:textSize="22sp"
+                    android:textColor="#fff"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:gravity="end"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp">
+                    <ImageView
+                        android:id="@+id/addJadwal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_add_black_24dp" />
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabsHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabIndicatorColor="#9D99DC"
+                app:tabSelectedTextColor="?attr/textColorToolbar"
+                app:tabTextColor="#aaaaaaaa"
+                />
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

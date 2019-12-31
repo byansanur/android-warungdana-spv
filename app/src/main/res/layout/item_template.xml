@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:padding="@dimen/enambelas_dp"
+            app:cardCornerRadius="10dp">
+
+            <RelativeLayout
+                android:id="@+id/layoutItemCustomer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/enambelas_dp">
+
+                <LinearLayout
+                    android:layout_toStartOf="@+id/kotakLaknat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toEndOf="@+id/imgbox">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_accessibility_black_24dp"
+                            android:layout_marginEnd="@dimen/enambelas_dp"/>
+                        <TextView
+                            android:layout_gravity="center"
+                            android:id="@+id/tvTypeActivity"
+                            android:textSize="16sp"
+                            android:textColor="?attr/textColor"
+                            android:text="type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_group_work_black_24dp"
+                            android:layout_marginEnd="@dimen/enambelas_dp"/>
+                        <TextView
+                            android:id="@+id/tvUsersActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="User1, user2, user3"
+                            android:layout_gravity="center"
+                            android:textColor="?attr/textColor"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_pin_drop_black_24dp"
+                            android:layout_marginEnd="@dimen/enambelas_dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Location"
+                            android:layout_gravity="center"
+                            android:textColor="?attr/textColor"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/kotakLaknat"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:orientation="vertical"
+                    android:layout_alignParentEnd="true">
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvItemStatus"-->
+<!--                        android:text="Status"-->
+<!--                        android:drawableEnd="@drawable/ic_more_vert_black"-->
+<!--                        android:layout_below="@+id/tvStarted"-->
+<!--                        android:drawablePadding="12dp"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textAlignment="textEnd"-->
+<!--                        android:textColor="?attr/textColor"/>-->
+                    <TextView
+                        android:id="@+id/tvStarted"
+                        android:textColor="?attr/textColor"
+                        android:text="Started"
+                        android:gravity="end"
+                        android:layout_centerInParent="true"
+                        android:drawablePadding="12dp"
+                        android:drawableEnd="@drawable/ic_date_range_black_24dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="@dimen/enambelas_dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_alignParentBottom="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/view"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#fff"
+                    android:padding="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:text="Create template" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</LinearLayout>

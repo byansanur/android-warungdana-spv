@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!-- Light / day theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="colorPrimary">#3768bd</item>
+        <item name="textDetail">#3768bd</item>
+        <item name="colorPrimaryDark">#332C98</item>
+        <item name="colorAccent">#9D99DC</item>
+        <item name="backgroundColor">#f3f3f3</item>
+        <item name="toolbarColor">#3768bd</item>
+        <item name="cardBackground">#fff</item>
+        <item name="textColor">#525252</item>
+        <item name="textColorToolbar">#fff</item>
+        <item name="textSubColor">#808080</item>
+        <item name="textSwitch">#000</item>
+        <item name="tintColor">#000</item>
+        <item name="buttonColor">#3768bd</item>
+        <item name="menuColor">#3768bd</item>
+    </style>
+
+    <!-- Dark / night theme. -->
+    <style name="darkTheme" parent="Theme.MaterialComponents.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+<!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
+        <item name="colorPrimary">#212121</item>
+        <item name="textDetail">#f3f3f3</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#424242</item>
+        <item name="backgroundColor">#303030</item>
+        <item name="toolbarColor">#303030</item>
+        <item name="cardBackground">#424242</item>
+        <item name="textColor">#fff</item>
+        <item name="textColorToolbar">#fff</item>
+        <item name="textSubColor">#fff</item>
+        <item name="textSwitch">#fff</item>
+        <item name="tintColor">#fff</item>
+        <item name="buttonColor">#3768bd</item>
+        <item name="menuColor">#f3f3f3</item>
+    </style>
+
+    <style
+        name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.BottomSheetDialog">
+        <item name="android:textColorHint">#000</item>
+        <item name="android:textColor">#000</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle">
+        <item name="android:background">@drawable/bs_corner_radius</item>
+    </style>
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/intro</item>
+    </style>
+
+    <style name="TransparentTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MaterialComponents.DayNight">materialComponentsDark</style>
+
+    <style name="mMenuTextApearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">?attr/textColorToolbar</item>
+    </style>
+
+</resources>

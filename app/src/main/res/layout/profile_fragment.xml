@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/cardBackground">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:background="@drawable/tb_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleTextColor="?attr/textColorToolbar"
+                app:subtitleTextColor="?attr/textSubColor"
+                app:menu="@menu/menu_profile">
+
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/enambelas_dp"
+            android:layout_marginTop="@dimen/enambelas_dp">
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardImgCircle"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="100dp"-->
+<!--                app:cardCornerRadius="90dp"-->
+<!--                app:cardBackgroundColor="#525252"-->
+<!--                android:shape="ring"-->
+<!--                android:thicknessRatio="1.9">-->
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/Avatar"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/background"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/enambelas_dp">
+
+
+                <TextView
+                    android:id="@+id/spName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama"
+                    android:textColor="?attr/textColor"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/spNpm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Npm"
+                    android:textColor="?attr/textColor"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/spBranch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Branch"
+                    android:textColor="?attr/textColor"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/spOutlet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="outlet"
+                    android:textColor="?attr/textColor"
+                    android:textSize="15sp"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_margin="@dimen/enambelas_dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?attr/colorPrimary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/enambelas_dp"
+            android:layout_marginEnd="@dimen/enambelas_dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textColor="?attr/textColor"
+                android:textSize="24dp"
+                android:textStyle="normal|bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tvGantiPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forget_password"
+                    android:textColor="?attr/textColor"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Changes theme"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="?attr/textColor"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eula"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="?attr/textColor"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
