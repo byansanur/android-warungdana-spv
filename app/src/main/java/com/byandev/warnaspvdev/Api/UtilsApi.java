@@ -2,7 +2,8 @@ package com.byandev.warnaspvdev.Api;
 
 public class UtilsApi {
 //    public static final String BASE_URL_API = "http://dna-developer.com:804/";
-    public static final String BASE_URL_API = "http://192.168.77.14:3001/api_bian/v1/";
+//    public static final String BASE_URL_API = "http://192.168.77.14:3001/api_bian/v1/";
+    public static final String BASE_URL_API = "http://192.168.50.53:3001/api_bian/v1/";
 //    public static final String BASE_URL_API_ACTIVITY = "http://192.168.77.14:3000/service/bian/";
 //public static final String BASE_UPDATE_JSON = "http://dna-developer.com:804/updateapp/update.json";
 

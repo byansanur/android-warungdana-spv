@@ -3,6 +3,7 @@ package com.byandev.warnaspvdev.Api;
 import android.content.Intent;
 
 import com.byandev.warnaspvdev.Response.Login;
+import com.byandev.warnaspvdev.Response.RespActivityList;
 import com.byandev.warnaspvdev.Response.RespActivityPost;
 import com.byandev.warnaspvdev.Response.RespActivityStatus;
 import com.byandev.warnaspvdev.Response.RespActivityType;
@@ -166,5 +167,5 @@ public interface ApiEndPoint {
                                         @Field("note") String note);
 
     @GET("bian_list_activity_ayam")
-    Call<RespListActivity> getListActivity();
+    Call<RespActivityList> getListActivity();
 }

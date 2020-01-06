@@ -40,11 +40,12 @@ public class RespActivityList {
     this.data = data;
   }
 
+
   public class DataActivity {
 
     @SerializedName("data_user")
     @Expose
-    private List<DataUsers> dataUser = null;
+    private List<DataUser> dataUser = null;
     @SerializedName("id_activity")
     @Expose
     private Integer idActivity;
@@ -88,11 +89,11 @@ public class RespActivityList {
     @Expose
     private String branchName;
 
-    public List<DataUsers> getDataUser() {
+    public List<DataUser> getDataUser() {
       return dataUser;
     }
 
-    public void setDataUser(List<DataUsers> dataUser) {
+    public void setDataUser(List<DataUser> dataUser) {
       this.dataUser = dataUser;
     }
 
@@ -210,7 +211,7 @@ public class RespActivityList {
 
   }
 
-  public class DataUsers {
+  public class DataUser {
 
     @SerializedName("id")
     @Expose

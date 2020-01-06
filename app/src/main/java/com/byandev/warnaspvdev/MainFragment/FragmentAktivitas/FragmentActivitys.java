@@ -1,14 +1,8 @@
 package com.byandev.warnaspvdev.MainFragment.FragmentAktivitas;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,22 +13,16 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.byandev.warnaspvdev.Adapter.ListActivityAdapter;
-import com.byandev.warnaspvdev.Adapter.ListOrderApproveAdapter;
 import com.byandev.warnaspvdev.Api.ApiEndPoint;
 import com.byandev.warnaspvdev.Api.SharedPrefManager;
 import com.byandev.warnaspvdev.Api.UtilsApi;
-import com.byandev.warnaspvdev.MainActivity.TambahJadwalActivity;
 import com.byandev.warnaspvdev.R;
-import com.byandev.warnaspvdev.Response.RespListActivity;
-import com.byandev.warnaspvdev.Response.RespOrderStatus;
-import com.byandev.warnaspvdev.Response.RespUsers2;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.byandev.warnaspvdev.Response.RespActivityList;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -54,7 +42,8 @@ public class FragmentActivitys extends Fragment {
     String selectedDate;
     ProgressBar progress;
 
-  ArrayList<RespListActivity.ActivityList> listed;
+  ArrayList<RespActivityList.DataActivity> actyivitylisted;
+//  ArrayList<RespActivityList.DataUser> userlisted;
   ListActivityAdapter listActivityAdapter;
 
     public FragmentActivitys() {
@@ -73,8 +62,9 @@ public class FragmentActivitys extends Fragment {
 
       progress = view.findViewById(R.id.progress);
 
-      listed = new ArrayList<>();
-      listActivityAdapter = new ListActivityAdapter(getContext(), listed);
+      actyivitylisted = new ArrayList<>();
+//      userlisted = new ArrayList<>();
+      listActivityAdapter = new ListActivityAdapter(getContext(), actyivitylisted);
       LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
       recyclerView.setLayoutManager(linearLayoutManager);
       recyclerView.setAdapter(listActivityAdapter);
@@ -132,8 +122,9 @@ public class FragmentActivitys extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-//    firstLoad();
-    listed.clear();
+    firstLoad();
+    actyivitylisted.clear();
+//    userlisted.clear();
     listActivityAdapter.notifyDataSetChanged();
     progress.setVisibility(View.VISIBLE);
   }
@@ -142,33 +133,35 @@ public class FragmentActivitys extends Fragment {
   public void onStart() {
     super.onStart();
   }
-//
-//  private void firstLoad() {
-//      itShouldLoadMore = true;
-//      mApiService.listActivity(sharedPrefManager.getSpOutletId(), limit, 0)
-//          .enqueue(new Callback<RespListActivity>() {
-//            @Override
-//            public void onResponse(Call<RespListActivity> call, Response<RespListActivity> response) {
-//              if (response.isSuccessful()) {
-//                if (response.body() != null && response.body().getApiStatus() == 1) {
-//                  List<RespListActivity.ActivityList> list = response.body().getData();
-//                  listed.addAll(list);
-//                  listActivityAdapter.notifyDataSetChanged();
-//                  progress.setVisibility(View.GONE);
-//                }
-//                Log.d("data activity", ":" +listed);
-//              }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<RespListActivity> call, Throwable t) {
-//              itShouldLoadMore = true;
-//              progress.setVisibility(View.INVISIBLE);
-//            }
-//          });
-//  }
-//
-//  private void loadMore() {
+
+  private void firstLoad() {
+      itShouldLoadMore = true;
+      mApiService.getListActivity().enqueue(new Callback<RespActivityList>() {
+        @Override
+        public void onResponse(Call<RespActivityList> call, Response<RespActivityList> response) {
+          if (response.isSuccessful()) {
+            if (response.body() != null) {
+              if (response.body().getApiStatus() == 1) {
+                List<RespActivityList.DataActivity> activityLists = response.body().getData();
+//                final RespActivityList.DataUser usersList = (RespActivityList.DataUser) response.body().getData();
+//                userlisted.addAll((Collection<? extends RespActivityList.DataUser>) usersList);
+                actyivitylisted.addAll(activityLists);
+                listActivityAdapter.notifyDataSetChanged();
+                progress.setVisibility(View.GONE);
+              }
+            }
+          }
+        }
+
+        @Override
+        public void onFailure(Call<RespActivityList> call, Throwable t) {
+          itShouldLoadMore = true;
+          progress.setVisibility(View.INVISIBLE);
+        }
+      });
+  }
+
+  private void loadMore() {
 //      itShouldLoadMore = true;
 //      mApiService.listActivity(sharedPrefManager.getSpOutletId(), limit, offset)
 //          .enqueue(new Callback<RespListActivity>() {
@@ -191,6 +184,6 @@ public class FragmentActivitys extends Fragment {
 //              progress.setVisibility(View.INVISIBLE);
 //            }
 //          });
-//  }
+  }
 
 }

@@ -65,12 +65,15 @@ public class FragmentOrderApprove extends Fragment {
         progress = view.findViewById(R.id.progress);
         ic_kosong = view.findViewById(R.id.ic_kosong);
         ic_kosong.setVisibility(View.VISIBLE);
+
         recyclerView = view.findViewById(R.id.recylerViewApprove);
         mApiService = UtilsApi.getAPIService();
         sharedPrefManager = new SharedPrefManager(getContext());
+
         listed = new ArrayList<>();
         listOrderApproveAdapter = new ListOrderApproveAdapter(getContext(), listed);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(listOrderApproveAdapter);
 

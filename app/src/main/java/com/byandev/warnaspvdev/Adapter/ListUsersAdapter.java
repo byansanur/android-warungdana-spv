@@ -41,7 +41,6 @@ public class ListUsersAdapter extends
     ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
 
-    private Integer[] id;
 
     public ListUsersAdapter(Context context, List users) {
         this.context = context;
