@@ -123,8 +123,13 @@ public class FragmentOrderApprove extends Fragment {
                       List<RespOrderStatus.ListOrderStatus> list = response.body().getData();
                       listed.addAll(list);
                       listOrderApproveAdapter.notifyDataSetChanged();
+                      if (listed.size() >= 1) {
+                        iconKosong.setVisibility(LinearLayout.INVISIBLE);
+                      } else {
+                        iconKosong.setVisibility(LinearLayout.VISIBLE);
+                      }
+
                       progress.setVisibility(View.GONE);
-                      ic_kosong.setVisibility(View.GONE);
                     }
                   }
                 }

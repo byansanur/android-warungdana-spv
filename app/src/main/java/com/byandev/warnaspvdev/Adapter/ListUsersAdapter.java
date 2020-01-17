@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.util.LongSparseArray;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,29 +83,45 @@ public class ListUsersAdapter extends
 //          }
 //        });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            if (selected.contains(listUsers)) {
-              selected.remove(listUsers);
-              unhighlightView(holder);
-            } else {
-              selected.add(listUsers);
-              highlightView(holder);
-            }
+      holder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          if (selected.contains(listUsers)) {
+            selected.remove(listUsers);
+            unhighlightView(holder);
+          } else {
+            selected.add(listUsers);
+            highlightView(holder);
+            Toast.makeText(context, "id users pilih : " + listUsers.getId() +" "+ listUsers.getName(), Toast.LENGTH_LONG).show();
           }
-        });
+        }
+      });
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View v) {
+//            if (selected.contains(listUsers)) {
+//              selected.remove(listUsers);
+//              unhighlightView(holder);
+//            } else {
+//              selected.add(listUsers);
+//              highlightView(holder);
+//            }
+//          }
+//        });
 
         if (selected.contains(listUsers))
           highlightView(holder);
         else unhighlightView(holder);
     }
     private void highlightView(ListUserHolder holder) {
-      holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected));
+      holder.imgList.setImageResource(R.drawable.ic_check_blue_24dp);
+      holder.llItem.setBackgroundColor(ContextCompat.getColor(context, R.color.textSubColor));
     }
 
     private void unhighlightView(ListUserHolder holder) {
-      holder.itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
+      holder.imgList.setImageResource(R.drawable.oval);
+      holder.llItem.setBackgroundColor(ContextCompat.getColor(context, R.color.white_transparency));
     }
 
     public void addAll(List<RespUsers.RespListUsers> users) {

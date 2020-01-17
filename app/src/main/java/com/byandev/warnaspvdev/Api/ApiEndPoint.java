@@ -166,6 +166,6 @@ public interface ApiEndPoint {
                                         @Field("ended") String ended,
                                         @Field("note") String note);
 
-    @GET("bian_list_activity_ayam")
+    @GET("list_activity")
     Call<RespActivityList> getListActivity();
 }

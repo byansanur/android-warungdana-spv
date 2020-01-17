@@ -119,8 +119,13 @@ public class FragmentOrderProses extends Fragment {
                         List<RespOrderStatus.ListOrderStatus> list = response.body().getData();
                         listed.addAll(list);
                         listOrderApproveAdapter.notifyDataSetChanged();
-                        progress.setVisibility(View.GONE);
-                        ic_kosong.setVisibility(View.GONE);
+                      if (listed.size() >= 1) {
+                        iconKosong.setVisibility(LinearLayout.INVISIBLE);
+                      } else {
+                        iconKosong.setVisibility(LinearLayout.VISIBLE);
+                      }
+
+                      progress.setVisibility(View.GONE);
                     }
                 }
             }

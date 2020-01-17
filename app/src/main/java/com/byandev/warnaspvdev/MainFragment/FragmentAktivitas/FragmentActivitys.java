@@ -22,7 +22,6 @@ import com.byandev.warnaspvdev.R;
 import com.byandev.warnaspvdev.Response.RespActivityList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -43,7 +42,7 @@ public class FragmentActivitys extends Fragment {
     ProgressBar progress;
 
   ArrayList<RespActivityList.DataActivity> actyivitylisted;
-//  ArrayList<RespActivityList.DataUser> userlisted;
+//  ArrayList<RespActivityList.DataUser> user;
   ListActivityAdapter listActivityAdapter;
 
     public FragmentActivitys() {
@@ -63,7 +62,7 @@ public class FragmentActivitys extends Fragment {
       progress = view.findViewById(R.id.progress);
 
       actyivitylisted = new ArrayList<>();
-//      userlisted = new ArrayList<>();
+//      user = new ArrayList<>();
       listActivityAdapter = new ListActivityAdapter(getContext(), actyivitylisted);
       LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
       recyclerView.setLayoutManager(linearLayoutManager);
@@ -143,8 +142,7 @@ public class FragmentActivitys extends Fragment {
             if (response.body() != null) {
               if (response.body().getApiStatus() == 1) {
                 List<RespActivityList.DataActivity> activityLists = response.body().getData();
-//                final RespActivityList.DataUser usersList = (RespActivityList.DataUser) response.body().getData();
-//                userlisted.addAll((Collection<? extends RespActivityList.DataUser>) usersList);
+
                 actyivitylisted.addAll(activityLists);
                 listActivityAdapter.notifyDataSetChanged();
                 progress.setVisibility(View.GONE);

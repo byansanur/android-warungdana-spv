@@ -6,7 +6,7 @@
     <color name="colorAccent">#0d85b4</color>
     <color name="pencarianText">#FFFF</color>
     <color name="pencarianText2">#525252</color>
-    <color name="textSubColor">#747373</color>
+    <color name="textSubColor">#D6D5D5</color>
     <color name="fab">#9D99DC</color>
     <color name="selected">#9D99DC</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.byandev.warnaspvdev.MainFragment.FragmentTambahActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import com.byandev.warnaspvdev.Adapter.ListUsersAdapter;
 import com.byandev.warnaspvdev.Api.ApiEndPoint;
 import com.byandev.warnaspvdev.Api.SharedPrefManager;
 import com.byandev.warnaspvdev.Api.UtilsApi;
+import com.byandev.warnaspvdev.MainActivity.TambahJadwalActivity;
 import com.byandev.warnaspvdev.R;
 import com.byandev.warnaspvdev.Response.RespUsers;
 import com.byandev.warnaspvdev.Utils.UtilsConnected;
@@ -124,8 +126,20 @@ public class FragmentListUsersAdd extends Fragment {
   // search
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.menu_order, menu);
+    inflater.inflate(R.menu.menu_ceklist, menu);
     MenuItem menuItem = menu.findItem(R.id.action_search);
-//    MenuItem menuItem1 = menu.findItem(R.id.menuCek);
+
+    MenuItem menuItem1 = menu.findItem(R.id.menuCek);
+    menuItem1.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+      @Override
+      public boolean onMenuItemClick(MenuItem item) {
+        Intent a = new Intent(context, TambahJadwalActivity.class);
+        a.putExtra("id", respListUsers.get(0).getId());
+        startActivity(a);
+        return false;
+      }
+    });
+
     final SearchView sv = (SearchView) menuItem.getActionView();
     sv.setQueryHint("Search name of users...");
     sv.setDrawingCacheBackgroundColor(getResources().getColor(R.color.white_transparency));

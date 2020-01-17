@@ -211,7 +211,7 @@ public class RespActivityList {
 
   }
 
-  public class DataUser {
+  public static class DataUser {
 
     @SerializedName("id")
     @Expose
