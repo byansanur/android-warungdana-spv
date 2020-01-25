@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 loading.dismiss();
-                Toast.makeText(mContext, "Not Responding", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Not Responding : "+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

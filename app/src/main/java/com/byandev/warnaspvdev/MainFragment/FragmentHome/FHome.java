@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byandev.warnaspvdev.Adapter.ListActivityAdapter;
 import com.byandev.warnaspvdev.Adapter.ListLeadUsersAdapter;
 import com.byandev.warnaspvdev.MainActivity.TambahJadwalActivity;
 import com.byandev.warnaspvdev.Adapter.ListOrderNew;
@@ -35,6 +36,7 @@ import com.byandev.warnaspvdev.Api.ApiEndPoint;
 import com.byandev.warnaspvdev.Api.SharedPrefManager;
 import com.byandev.warnaspvdev.Api.UtilsApi;
 import com.byandev.warnaspvdev.R;
+import com.byandev.warnaspvdev.Response.RespActivityList;
 import com.byandev.warnaspvdev.Response.RespLeadUsers;
 import com.byandev.warnaspvdev.Response.RespOrderStatus;
 import com.byandev.warnaspvdev.Response.RespOutletPerformance;
@@ -81,6 +83,11 @@ public class FHome extends Fragment {
   private ListOrderNew listOrderNew;
   private TextView iconKosong;
 
+  // activity
+  private ArrayList<RespActivityList.DataActivity> activities;
+  private ListActivityAdapter activityAdapter;
+  private RecyclerView recylerViewAktivitas;
+
   // outletPerformance
 //  private ArrayList<RespOutletPerformance.ListOutletPerformance> outletPerformance;
 //  private ListOutletAdapter listOutletAdapter;
@@ -90,7 +97,7 @@ public class FHome extends Fragment {
   private ListLeadUsersAdapter listLeadUsersAdapter;
 
   private ProgressBar progresKpi;
-  private Integer Offset = 3, limit, limits;
+  private Integer offset = 3, limit, limits;
   private boolean itShouldLoadMore = true;
 
   public FHome(){
@@ -195,6 +202,31 @@ public class FHome extends Fragment {
       }
     });
 
+    recylerViewAktivitas = view.findViewById(R.id.recylerViewAktivitas);
+    recylerViewAktivitas.setHasFixedSize(true);
+    activities = new ArrayList<>();
+    activityAdapter = new ListActivityAdapter(context, activities);
+    LinearLayoutManager llm = new LinearLayoutManager(context);
+    llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+    recylerViewAktivitas.setLayoutManager(llm);
+    recylerViewAktivitas.setAdapter(activityAdapter);
+    recylerViewAktivitas.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+        if (dy > 0){
+          if (!recyclerView.canScrollVertically(RecyclerView.FOCUSABLE_AUTO)){
+            if (itShouldLoadMore) {
+              ProgressDialog pd = new ProgressDialog(context);
+              pd.setMessage("Loading...");
+              pd.show();
+              getactivityLoadMore();
+            }
+          }
+        }
+      }
+    });
+
     // rv list outlet performances
 //    outletPerformance = new ArrayList<>();
 //    RecyclerView rvKpiOutlet = view.findViewById(R.id.rvKpiOutlet);
@@ -252,6 +284,8 @@ public class FHome extends Fragment {
     return view;
   }
 
+
+
   @SuppressLint("SimpleDateFormat")
   private void getDateNow(){
     final Calendar calendar = Calendar.getInstance();
@@ -301,8 +335,10 @@ public class FHome extends Fragment {
     getDateNow();
     getKPI();
     getDPerformance();
+    getAktivitas();
     getOrders();
   }
+
 
   private void getKPI() {
     tvBulan.setText(dateSekarang);
@@ -506,6 +542,59 @@ public class FHome extends Fragment {
 
   }
 
+
+  private void getAktivitas() {
+    itShouldLoadMore = false;
+    mApiService.getListActivityHome(
+        sharedPrefManager.getSpBranchId(),
+        limit,
+        0
+    ).enqueue(new Callback<RespActivityList>() {
+      @Override
+      public void onResponse(Call<RespActivityList> call, Response<RespActivityList> response) {
+        if (response.isSuccessful()) {
+          if (response.body() != null && response.body().getApiStatus() == 1) {
+            List<RespActivityList.DataActivity> dataActivityList = response.body().getData();
+            activities.addAll(dataActivityList);
+            activityAdapter.notifyDataSetChanged();
+          }
+        }
+      }
+
+      @Override
+      public void onFailure(Call<RespActivityList> call, Throwable t) {
+
+      }
+    });
+  }
+
+  private void getactivityLoadMore() {
+    itShouldLoadMore = false;
+    mApiService.getListActivityHome(
+        sharedPrefManager.getSpBranchId(),
+        limit,
+        0
+    ).enqueue(new Callback<RespActivityList>() {
+      @Override
+      public void onResponse(Call<RespActivityList> call, Response<RespActivityList> response) {
+        if (response.isSuccessful()) {
+          if (response.body() != null && response.body().getApiStatus() == 1) {
+            List<RespActivityList.DataActivity> ad = response.body().getData();
+            activities.addAll(ad);
+            activityAdapter.notifyDataSetChanged();
+            int index = activities.size();
+            offset = index;
+          }
+        }
+      }
+
+      @Override
+      public void onFailure(Call<RespActivityList> call, Throwable t) {
+
+      }
+    });
+  }
+
   private void getDPerformance() {
     itShouldLoadMore = false;
     mApiService.listLeadUsers(
@@ -595,7 +684,7 @@ public class FHome extends Fragment {
         sharedPrefManager.getSpOutletId(),
         dateSekarang,
         limit,
-        0
+        offset
     ).enqueue(new Callback<RespOrderStatus>() {
       @Override
       public void onResponse(Call<RespOrderStatus> call, Response<RespOrderStatus> response) {
@@ -604,7 +693,8 @@ public class FHome extends Fragment {
             List<RespOrderStatus.ListOrderStatus> list = response.body().getData();
             orderList.addAll(list);
             listOrderNew.notifyDataSetChanged();
-            Offset = orderList.size();
+            int source = orderList.size();
+            offset = source;
           }
         }
       }

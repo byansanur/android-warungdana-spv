@@ -96,10 +96,10 @@ public class FragmentListUsersAdd extends Fragment {
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recycler_view.getContext(),
-        layoutManager.getOrientation());
-
-    recycler_view.addItemDecoration(dividerItemDecoration);
+//    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recycler_view.getContext(),
+//        layoutManager.getOrientation());
+//
+//    recycler_view.addItemDecoration(dividerItemDecoration);
     recycler_view.setLayoutManager(layoutManager);
     recycler_view.setAdapter(listUsersAdapter);
     recycler_view.addOnScrollListener(new RecyclerView.OnScrollListener() {

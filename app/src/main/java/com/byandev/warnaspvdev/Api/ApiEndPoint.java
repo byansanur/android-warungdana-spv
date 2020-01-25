@@ -155,17 +155,26 @@ public interface ApiEndPoint {
     @GET("users2")
     Call<RespUsers2> usersSearchCfaTelemarketing(@Query("id_mst_outlet") Integer idMstOutlet);
 
+    @FormUrlEncoded
     @POST("bian_activity")
     Call<RespActivityPost> postActivity(@Field("id_mst_outlet") Integer idMstOutlet,
                                         @Field("id_activity_mst_type") Integer idActivityMstType,
                                         @Field("id_cms_users") Integer idCmsUsers,
                                         @Field("location") String location,
+                                        @Field("lat") String lat,
+                                        @Field("lng") String lng,
                                         @Field("start_date") String startDate,
                                         @Field("end_date") String endDate,
                                         @Field("started") String started,
                                         @Field("ended") String ended,
-                                        @Field("note") String note);
+                                        @Field("note") String note,
+                                        @Field("id_cms_users_activity") Integer idCmsUsersActivity);
 
     @GET("list_activity")
-    Call<RespActivityList> getListActivity();
+    Call<RespActivityList> getListActivity(@Query("id_mst_branch") Integer idMstBranch);
+
+    @GET("list_activity")
+    Call<RespActivityList> getListActivityHome(@Query("id_mst_branch") Integer idMstBranch,
+                                               @Query("limit") Integer limit,
+                                               @Query("offset") Integer offset);
 }

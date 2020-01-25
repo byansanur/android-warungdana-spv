@@ -77,15 +77,35 @@
 
 
                 <TextView
-                    android:id="@+id/ClickDialog"
+                    android:id="@+id/tvChose"
                     android:layout_width="match_parent"
                     android:hint="Choose cfa here"
                     android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/tv_users"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:hint=""
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/enambelas_dp">
+                    <TextView
+                        android:id="@+id/tv_users1"
+                        android:layout_width="wrap_content"
+                        android:hint=""
+                        android:textStyle="normal"
+                        android:layout_height="wrap_content" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_users2"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:hint=""-->
+<!--                        android:layout_height="wrap_content" />-->
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_users3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:hint=""-->
+<!--                        android:layout_height="wrap_content" />-->
+
+                </LinearLayout>
+
 
 <!--                <EditText-->
 <!--                    android:id="@+id/input_users"-->

@@ -532,16 +532,17 @@
                   android:text="@string/sorry"
                   android:textAlignment="center"
                   android:gravity="center"
-                  android:visibility="visible"
+                  android:visibility="gone"
                   android:contentDescription="@string/imgload" />
 
+
+
+            </LinearLayout>
               <androidx.recyclerview.widget.RecyclerView
                   android:id="@+id/recylerViewAktivitas"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:visibility="gone"/>
-
-            </LinearLayout>
+                  android:visibility="visible"/>
           </LinearLayout>
 
             <LinearLayout

@@ -19,6 +19,18 @@ import com.byandev.warnaspvdev.R;
 
 public class TambahJadwalActivity extends AppCompatActivity  {
 
+  private Integer idUser;
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+  public Integer getIdUser() {
+    return idUser;
+  }
+
+
+
     @Override
     protected void onCreate(Bundle s) {
         super.onCreate(s);
@@ -31,6 +43,9 @@ public class TambahJadwalActivity extends AppCompatActivity  {
         }
 
         final Context context = getApplicationContext();
+
+      idUser = getIntent().getIntExtra("idUser", 0);
+      name = getIntent().getStringExtra("name");
 
       TextView addTemplate = findViewById(R.id.addTemplate);
       addTemplate.setOnClickListener(new View.OnClickListener() {

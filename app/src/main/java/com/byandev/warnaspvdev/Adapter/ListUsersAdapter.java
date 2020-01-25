@@ -19,8 +19,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beloo.widget.chipslayoutmanager.layouter.Item;
 import com.byandev.warnaspvdev.Api.ApiEndPoint;
 import com.byandev.warnaspvdev.Api.SharedPrefManager;
 import com.byandev.warnaspvdev.Api.UtilsApi;
@@ -37,23 +39,25 @@ import timber.log.Timber;
 public class ListUsersAdapter extends
         RecyclerView.Adapter<ListUsersAdapter.ListUserHolder>{
 
-    ArrayList<RespUsers.RespListUsers> users, selected;
+    ArrayList<RespUsers.RespListUsers> users;
+//        , selected;
     Context context;
     ApiEndPoint mApiService;
     SharedPrefManager sharedPrefManager;
-
+    boolean [] itemCheck;
 
     public ListUsersAdapter(Context context, List users) {
         this.context = context;
         this.users = (ArrayList<RespListUsers>) users;
-        this.selected = new ArrayList<>();
+        itemCheck = new boolean[users.size()];
+//        this.selected = new ArrayList<>();
     }
 
-    public void setUsers(ArrayList<RespUsers.RespListUsers> userss){
-      this.users = new ArrayList<>();
-      this.users = userss;
-      notifyDataSetChanged();
-    }
+//    public void setUsers(ArrayList<RespUsers.RespListUsers> userss){
+//      this.users = new ArrayList<>();
+//      this.users = userss;
+//      notifyDataSetChanged();
+//    }
 
     @Override
     public ListUserHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -66,7 +70,7 @@ public class ListUsersAdapter extends
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(final ListUserHolder holder, int position) {
+    public void onBindViewHolder(final ListUserHolder holder, final int position) {
 
         final RespUsers.RespListUsers listUsers = users.get(position);
         holder.npm.setText(listUsers.getNpm());
@@ -74,6 +78,31 @@ public class ListUsersAdapter extends
         holder.privilegesN.setText(listUsers.getPrivilegesName());
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_person_white_24dp);
         holder.imgList.setBackground(drawable);
+        if (itemCheck[position]) {
+          highlightView(holder);
+        }
+        holder.llItem.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            if (!users.isEmpty()) {
+              holder.llItem.setBackgroundColor(0xFFFFFFFF);
+              itemCheck[position]=false;
+            } else {
+              holder.llItem.setBackgroundColor(Color.BLUE);
+              itemCheck[position]=true;
+            }
+          }
+        });
+//
+//        holder.llItem.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View v) {
+////            Intent a = new Intent(context, TambahJadwalActivity.class);
+////            a.putExtra("idUser", listUsers.getId());
+////            a.putExtra("name", listUsers.getName());
+////            context.startActivity(a);
+//          }
+//        });
 //        holder.llItem.setOnClickListener(new View.OnClickListener() {
 //          @Override
 //          public void onClick(View v) {
@@ -83,20 +112,25 @@ public class ListUsersAdapter extends
 //          }
 //        });
 
-      holder.itemView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          if (selected.contains(listUsers)) {
-            selected.remove(listUsers);
-            unhighlightView(holder);
-          } else {
-            selected.add(listUsers);
-            highlightView(holder);
-            Toast.makeText(context, "id users pilih : " + listUsers.getId() +" "+ listUsers.getName(), Toast.LENGTH_LONG).show();
-          }
-        }
-      });
-
+//      holder.itemView.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//          if (selected.contains(listUsers)) {
+//            selected.remove(listUsers);
+//            unhighlightView(holder);
+//          } else {
+//            selected.add(listUsers);
+//            highlightView(holder);
+//            if (itemsArray.get(position) == users) {
+//              itemsArray.put(position, users);
+//            }
+//            Toast.makeText(context, "id users pilih : " + listUsers.getId() +" "+ listUsers.getName(), Toast.LENGTH_LONG).show();
+//          }
+//          holder.llItem.setBackgroundResource(R.color.white_transparency);
+//
+//        }
+//      });
+//
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //          @Override
 //          public void onClick(View v) {
@@ -109,14 +143,15 @@ public class ListUsersAdapter extends
 //            }
 //          }
 //        });
-
-        if (selected.contains(listUsers))
-          highlightView(holder);
-        else unhighlightView(holder);
+//
+//        if (selected.contains(listUsers))
+//          highlightView(holder);
+//        else unhighlightView(holder);
     }
     private void highlightView(ListUserHolder holder) {
       holder.imgList.setImageResource(R.drawable.ic_check_blue_24dp);
       holder.llItem.setBackgroundColor(ContextCompat.getColor(context, R.color.textSubColor));
+
     }
 
     private void unhighlightView(ListUserHolder holder) {
@@ -124,32 +159,32 @@ public class ListUsersAdapter extends
       holder.llItem.setBackgroundColor(ContextCompat.getColor(context, R.color.white_transparency));
     }
 
-    public void addAll(List<RespUsers.RespListUsers> users) {
-      clearAll(false);
-      this.users = (ArrayList<RespListUsers>) users;
-      notifyDataSetChanged();
-    }
-
-    public void clearAll(boolean isNotify) {
-      users.clear();
-      selected.clear();
-      if (isNotify) notifyDataSetChanged();
-    }
-
-    public void clearSelected() {
-      selected.clear();
-      notifyDataSetChanged();
-    }
-
-    public void selectAll() {
-      selected.clear();
-      selected.addAll(users);
-      notifyDataSetChanged();
-    }
-
-    public List<RespListUsers> getSelected() {
-      return selected;
-    }
+//    public void addAll(List<RespUsers.RespListUsers> users) {
+//      clearAll(false);
+//      this.users = (ArrayList<RespListUsers>) users;
+//      notifyDataSetChanged();
+//    }
+//
+//    public void clearAll(boolean isNotify) {
+//      users.clear();
+//      selected.clear();
+//      if (isNotify) notifyDataSetChanged();
+//    }
+//
+//    public void clearSelected() {
+//      selected.clear();
+//      notifyDataSetChanged();
+//    }
+//
+//    public void selectAll() {
+//      selected.clear();
+//      selected.addAll(users);
+//      notifyDataSetChanged();
+//    }
+//
+//    public List<RespListUsers> getSelected() {
+//      return selected;
+//    }
 
 
     @Override

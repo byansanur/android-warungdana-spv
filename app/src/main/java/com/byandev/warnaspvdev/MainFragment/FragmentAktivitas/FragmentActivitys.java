@@ -135,7 +135,7 @@ public class FragmentActivitys extends Fragment {
 
   private void firstLoad() {
       itShouldLoadMore = true;
-      mApiService.getListActivity().enqueue(new Callback<RespActivityList>() {
+      mApiService.getListActivity(sharedPrefManager.getSpBranchId()).enqueue(new Callback<RespActivityList>() {
         @Override
         public void onResponse(Call<RespActivityList> call, Response<RespActivityList> response) {
           if (response.isSuccessful()) {

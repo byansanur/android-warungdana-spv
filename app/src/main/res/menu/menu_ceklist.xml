@@ -6,6 +6,12 @@
         android:id="@+id/menuCek"
         android:icon="@drawable/ic_check_white_24dp"
         android:title="checklist"
-        app:showAsAction="always" />
+        app:showAsAction="always" ></item>
+
+    <item
+        android:id="@+id/clearSelect"
+        android:icon="@drawable/clear"
+        android:title="clear"
+        app:showAsAction="always"></item>
 
 </menu>
