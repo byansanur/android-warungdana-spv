@@ -1,5 +1,6 @@
 package com.byandev.warnaspvdev.MainActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,12 +45,19 @@ public class ActivityListUserSelect extends AppCompatActivity implements View.On
   TextView countSelect;
 
   private ArrayList<RespUsers.RespListUsers> users;
+  private ArrayList<RespUsers.RespListUsers> selectCounts = new ArrayList<>();
+
   private ActionMode actionMode;
   private boolean isMultiSelect = false;
   private List<Integer> selectedIds = new ArrayList<>();
   private ListUserActivityAdapter adapter;
 
+  int counter = 0;
 
+  Bundle bundle = new Bundle();
+
+  String name[];
+  Integer idUser[];
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +136,16 @@ public class ActivityListUserSelect extends AppCompatActivity implements View.On
 
   @Override
   public void onBackPressed(){
+
+    if (in_action_mode)
+    {
+      clearActionMode();
+      adapter.notifyDataSetChanged();
+    }
+    else
+    {
+      super.onBackPressed();
+    }
     Intent i = new Intent(this, TambahJadwalActivity.class);
     startActivity(i);
     finish();
@@ -142,5 +161,74 @@ public class ActivityListUserSelect extends AppCompatActivity implements View.On
     adapter.notifyDataSetChanged();
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     return true;
+  }
+
+  public void prepareSelection(View view, int position)
+  {
+    if (((CheckBox)view).isChecked())
+    {
+      selectCounts.add(users.get(position));
+      counter = counter+1;
+      updateCounter(counter);
+
+    }
+    else
+    {
+      selectCounts.remove(users.get(position));
+      counter = counter-1;
+      updateCounter(counter);
+    }
+
+  }
+
+  public void updateCounter(int counter)
+  {
+    if (counter==0)
+    {
+      countSelect.setText("0 users selected");
+    }
+    else
+    {
+      countSelect.setText(counter + " users selected");
+    }
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId())
+    {
+      case R.id.menuCek:
+//        idUser = bundle.getIntegerArrayList("idUser").toArray(new Integer[0]);
+//        name = bundle.getStringArray("nama");
+//        Intent a = new Intent(context, TambahJadwalActivity.class);
+//        bundle = a.getBundleExtra(String.valueOf(name));
+//        bundle = a.getIntegerArrayListExtra(users);
+        return true;
+      case R.id.clearSelect:
+        if (in_action_mode)
+        {
+          clearActionMode();
+          adapter.notifyDataSetChanged();
+        }
+        else if (item.getItemId()==android.R.id.home)
+        {
+          clearActionMode();
+          adapter.notifyDataSetChanged();
+        }
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  public void clearActionMode()
+  {
+    in_action_mode = false;
+    toolbar.getMenu().clear();
+    toolbar.inflateMenu(R.menu.menu_target);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    countSelect.setVisibility(View.GONE);
+    countSelect.setText("0 users selected");
+    counter = 0;
+    selectCounts.clear();
   }
 }
