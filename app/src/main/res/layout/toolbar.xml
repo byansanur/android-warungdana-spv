@@ -7,18 +7,18 @@
     android:background="#332C98"
     app:titleTextColor="#fff">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0 item selected"
-            android:id="@+id/countItemSelect"
-            android:textSize="18sp"
-            android:textColor="#fff"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="0 item selected"-->
+<!--            android:id="@+id/countItemSelect"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="#fff"/>-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
 
 </androidx.appcompat.widget.Toolbar>

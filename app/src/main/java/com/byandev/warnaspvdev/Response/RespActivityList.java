@@ -43,12 +43,12 @@ public class RespActivityList {
 
   public class DataActivity {
 
-    @SerializedName("data_user")
-    @Expose
-    private List<DataUser> dataUser = null;
     @SerializedName("id_activity")
     @Expose
     private Integer idActivity;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
     @SerializedName("id_activity_schedule")
     @Expose
     private Integer idActivitySchedule;
@@ -88,14 +88,9 @@ public class RespActivityList {
     @SerializedName("branch_name")
     @Expose
     private String branchName;
-
-    public List<DataUser> getDataUser() {
-      return dataUser;
-    }
-
-    public void setDataUser(List<DataUser> dataUser) {
-      this.dataUser = dataUser;
-    }
+    @SerializedName("data_user")
+    @Expose
+    private List<DataUser> dataUser = null;
 
     public Integer getIdActivity() {
       return idActivity;
@@ -103,6 +98,14 @@ public class RespActivityList {
 
     public void setIdActivity(Integer idActivity) {
       this.idActivity = idActivity;
+    }
+
+    public String getCreatedAt() {
+      return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+      this.createdAt = createdAt;
     }
 
     public Integer getIdActivitySchedule() {
@@ -209,6 +212,13 @@ public class RespActivityList {
       this.branchName = branchName;
     }
 
+    public List<DataUser> getDataUser() {
+      return dataUser;
+    }
+
+    public void setDataUser(List<DataUser> dataUser) {
+      this.dataUser = dataUser;
+    }
   }
 
   public static class DataUser {

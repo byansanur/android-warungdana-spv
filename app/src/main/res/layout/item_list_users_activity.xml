@@ -9,34 +9,50 @@
         android:layout_height="1dp"
         android:background="@color/colorPrimary"/>
     <LinearLayout
+        android:id="@+id/llUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
         android:id="@+id/llItem"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_margin="@dimen/enambelas_dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/enambelas_dp"
+                android:layout_gravity="center">
             <ImageView
                 android:id="@+id/imageThumbnail"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/enambelas_dp" />
+                android:layout_gravity="center" />
+            <ImageView
+                android:id="@+id/imgCek"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center" />
+
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center">
-                <TextView
-                    android:id="@+id/idCfa"
-                    android:text="text"
-                    android:textSize="15sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/idCfa"-->
+<!--                    android:text="text"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"/>-->
                 <TextView
                     android:id="@+id/namaCfa"
                     android:text="text"
@@ -51,13 +67,14 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-            <CheckBox
-                android:id="@+id/cek"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+<!--            <CheckBox-->
+<!--                android:id="@+id/cek"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content" />-->
 
         </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

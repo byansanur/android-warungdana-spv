@@ -21,76 +21,40 @@
             <include
                 layout="@layout/toolbar"/>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical">-->
-<!--                <TextView-->
-<!--                    android:id="@+id/tvPencarian"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="#FFFF"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingTop="3dp"-->
-<!--                    android:paddingBottom="3dp"-->
-<!--                    android:text="Finding a users"/>-->
-
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/recyclerView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="#ffff"-->
-<!--                    android:scrollbars="vertical"-->
-<!--                    android:visibility="invisible" />-->
-
-<!--            </LinearLayout>-->
-
         </com.google.android.material.appbar.AppBarLayout>
 
 
-
-
-
-        <!--    <androidx.appcompat.widget.SearchView-->
-        <!--        android:id="@+id/searchView"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        app:queryHint="Search name of user"/>-->
-
-
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/pull"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:context=".MainActivity.ActivityListUserSelect"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical"/>
 
-            </LinearLayout>
+<!--                <ProgressBar-->
+<!--                    android:id="@+id/progress"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_alignParentBottom="false"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:layout_centerVertical="true"/>-->
 
 
-        </androidx.core.widget.NestedScrollView>
+            </RelativeLayout>
 
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </LinearLayout>
-
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/frame_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="?attr/backgroundColor"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
-
 
 </LinearLayout>

@@ -1,30 +1,39 @@
 package com.byandev.warnaspvdev.MainActivity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.byandev.warnaspvdev.Adapter.AdapterUserSelect;
 import com.byandev.warnaspvdev.Adapter.ListUserActivityAdapter;
+import com.byandev.warnaspvdev.Adapter.ListUsersAdapter;
+import com.byandev.warnaspvdev.Adapter.ListUsersForActivity;
 import com.byandev.warnaspvdev.Api.ApiEndPoint;
 import com.byandev.warnaspvdev.Api.SharedPrefManager;
 import com.byandev.warnaspvdev.Api.UtilsApi;
+import com.byandev.warnaspvdev.Helper.AlertDialogHelper;
 import com.byandev.warnaspvdev.Listener.RecyclerClickListener;
 import com.byandev.warnaspvdev.R;
-import com.byandev.warnaspvdev.Response.RespUser;
 import com.byandev.warnaspvdev.Response.RespUsers;
 
 import java.util.ArrayList;
@@ -34,62 +43,73 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ActivityListUserSelect extends AppCompatActivity implements View.OnLongClickListener {
+public class ActivityListUserSelect extends AppCompatActivity implements ListUsersForActivity.OnItemCliked, Toolbar.OnMenuItemClickListener {
 
   private ApiEndPoint mApiService;
   Context context;
   SharedPrefManager sharedPrefManager;
   private Toolbar toolbar;
-
-  public boolean in_action_mode = false;
-  TextView countSelect;
+  private boolean itShouldLoadMore = true;
 
   private ArrayList<RespUsers.RespListUsers> users;
-  private ArrayList<RespUsers.RespListUsers> selectCounts = new ArrayList<>();
+  private ListUsersForActivity adapter;
+  private List<Integer> userId = new ArrayList<>();
 
-  private ActionMode actionMode;
-  private boolean isMultiSelect = false;
-  private List<Integer> selectedIds = new ArrayList<>();
-  private ListUserActivityAdapter adapter;
+   RecyclerView recyclerView;
 
-  int counter = 0;
+//   private ActionMenuItemView menuNexts;
 
-  Bundle bundle = new Bundle();
-
-  String name[];
-  Integer idUser[];
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_list_user_select);
-//    context = getApplicationContext();
+
+    final SwipeRefreshLayout refreshLayout = findViewById(R.id.pull);
+    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        refreshLayout.setRefreshing(false);
+      }
+    });
+
     sharedPrefManager = new SharedPrefManager(this);
     mApiService = UtilsApi.getAPIService();
 
     toolbar = findViewById(R.id.toolbarSelectCount);
     toolbar.setTitle("Select users");
-    setSupportActionBar(toolbar);
+    toolbar.setOnMenuItemClickListener(this);
+    toolbar.inflateMenu(R.menu.menu_next);
+    toolbar.getMenu().findItem(R.id.nextMenu).setVisible(false);
 
-    countSelect = findViewById(R.id.countItemSelect);
-    countSelect.setVisibility(View.GONE);
+//    menuNexts = toolbar.findViewById(R.id.nextMenu);
+
+
+    context = this;
 
     users = new ArrayList<>();
-    RecyclerView recyclerView = findViewById(R.id.recycler_view);
-    adapter = new ListUserActivityAdapter(users, ActivityListUserSelect.this);
-    LinearLayoutManager ll = new LinearLayoutManager(ActivityListUserSelect.this);
-    recyclerView.setLayoutManager(ll);
-    recyclerView.setAdapter(adapter);
+    adapter = new ListUsersForActivity(context, users);
+    adapter.setOnClick(this);
+    LinearLayoutManager llm = new LinearLayoutManager(context);
+    recyclerView = findViewById(R.id.recycler_view);
     recyclerView.setHasFixedSize(true);
-
-
-//    loadFragment(new FragmentListUsersAdd());
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_target, menu);
-    return true;
+    recyclerView.setLayoutManager(llm);
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.setAdapter(adapter);
+    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+        if (dy > 0) {
+          if (!recyclerView.canScrollVertically(View.FOCUS_DOWN)) {
+            if (itShouldLoadMore) {
+//              loadMore();
+            }
+          }
+        }
+      }
+    });
+    firstLoad();
   }
 
   @Override
@@ -100,12 +120,10 @@ public class ActivityListUserSelect extends AppCompatActivity implements View.On
   @Override
   public void onResume(){
     super.onResume();
-    firstLoad();
-    users.clear();
-    adapter.notifyDataSetChanged();
   }
 
   private void firstLoad() {
+    itShouldLoadMore = false;
     mApiService.searchUsers(sharedPrefManager.getSpBranchId()).enqueue(new Callback<RespUsers>() {
       @Override
       public void onResponse(Call<RespUsers> call, Response<RespUsers> response) {
@@ -125,110 +143,56 @@ public class ActivityListUserSelect extends AppCompatActivity implements View.On
     });
   }
 
+//  private void loadMore() {itShouldLoadMore = false;
+//    mApiService.searchUsers(sharedPrefManager.getSpBranchId()).enqueue(new Callback<RespUsers>() {
+//      @Override
+//      public void onResponse(Call<RespUsers> call, Response<RespUsers> response) {
+//        if (response.isSuccessful()) {
+//          if (response.body() != null && response.body().getApiStatus() == 1) {
+//            List<RespUsers.RespListUsers> list = response.body().getData();
+//            users.addAll(list);
+//            adapter.notifyDataSetChanged();
+//          }
+//        }
+//      }
 //
-//  private void loadFragment(Fragment fragment) {
-//    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//    ft.replace(R.id.frame_container,fragment);
-//    ft.addToBackStack(null);
-//    ft.commitAllowingStateLoss();
+//      @Override
+//      public void onFailure(Call<RespUsers> call, Throwable t) {
+//
+//      }
+//    });
+//
 //  }
 
 
   @Override
   public void onBackPressed(){
-
-    if (in_action_mode)
-    {
-      clearActionMode();
-      adapter.notifyDataSetChanged();
-    }
-    else
-    {
-      super.onBackPressed();
-    }
-    Intent i = new Intent(this, TambahJadwalActivity.class);
-    startActivity(i);
+    super.onBackPressed();
+    Intent intent = new Intent(context, TambahJadwalActivity.class);
+    startActivity(intent);
     finish();
   }
 
 
   @Override
-  public boolean onLongClick(View v) {
-    toolbar.getMenu().clear();
-    toolbar.inflateMenu(R.menu.menu_ceklist);
-    countSelect.setVisibility(View.VISIBLE);
-    in_action_mode = true;
-    adapter.notifyDataSetChanged();
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    return true;
-  }
-
-  public void prepareSelection(View view, int position)
-  {
-    if (((CheckBox)view).isChecked())
-    {
-      selectCounts.add(users.get(position));
-      counter = counter+1;
-      updateCounter(counter);
-
-    }
-    else
-    {
-      selectCounts.remove(users.get(position));
-      counter = counter-1;
-      updateCounter(counter);
-    }
-
-  }
-
-  public void updateCounter(int counter)
-  {
-    if (counter==0)
-    {
-      countSelect.setText("0 users selected");
-    }
-    else
-    {
-      countSelect.setText(counter + " users selected");
+  public void selectedUser(List<Integer> idU) {
+    Toast.makeText(context, "tes "+idU.size(), Toast.LENGTH_SHORT).show();
+//    userId.clear();
+    userId = idU;
+    if (userId.size() >= 1) {
+     toolbar.getMenu().findItem(R.id.nextMenu).setVisible(true);
+    } else  {
+      toolbar.getMenu().findItem(R.id.nextMenu).setVisible(false);
     }
   }
 
   @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    switch (item.getItemId())
-    {
-      case R.id.menuCek:
-//        idUser = bundle.getIntegerArrayList("idUser").toArray(new Integer[0]);
-//        name = bundle.getStringArray("nama");
-//        Intent a = new Intent(context, TambahJadwalActivity.class);
-//        bundle = a.getBundleExtra(String.valueOf(name));
-//        bundle = a.getIntegerArrayListExtra(users);
+  public boolean onMenuItemClick(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.nextMenu:
         return true;
-      case R.id.clearSelect:
-        if (in_action_mode)
-        {
-          clearActionMode();
-          adapter.notifyDataSetChanged();
-        }
-        else if (item.getItemId()==android.R.id.home)
-        {
-          clearActionMode();
-          adapter.notifyDataSetChanged();
-        }
-        return true;
+        default:
     }
-    return super.onOptionsItemSelected(item);
-  }
-
-  public void clearActionMode()
-  {
-    in_action_mode = false;
-    toolbar.getMenu().clear();
-    toolbar.inflateMenu(R.menu.menu_target);
-    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    countSelect.setVisibility(View.GONE);
-    countSelect.setText("0 users selected");
-    counter = 0;
-    selectCounts.clear();
+    return false;
   }
 }

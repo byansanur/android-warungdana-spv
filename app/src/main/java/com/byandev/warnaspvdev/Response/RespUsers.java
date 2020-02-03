@@ -42,31 +42,47 @@ public class RespUsers {
 
     public static class RespListUsers {
 
+      public RespListUsers(
+          Integer id,
+          String createdAt,
+          String name,
+          String npm,
+          String email,
+          Integer idMstOutlet,
+          String outletName,
+          Integer idMstBranch,
+          String branchName,
+          Integer idCmsPrivileges,
+          String privilegesName,
+          Integer idCmsUsersOh,
+          Integer idCmsUsersSpv,
+          Integer idCmsUsersSubDept,
+          String spv,
+          String oh,
+          String subDept,
+          String status
+      )
+      {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.name = name;
+        this.npm = npm;
+        this.email = email;
+        this.idMstOutlet = idMstOutlet;
+        this.outletName = outletName;
+        this.idMstBranch = idMstBranch;
+        this.branchName = branchName;
+        this.idCmsPrivileges = idCmsPrivileges;
+        this.privilegesName = privilegesName;
+        this.idCmsUsersOh = idCmsUsersOh;
+        this.idCmsUsersSpv = idCmsUsersSpv;
+        this.idCmsUsersSubDept = idCmsUsersSubDept;
+        this.spv = spv;
+        this.oh = oh;
+        this.subDept = subDept;
+        this.status = status;
+      }
 
-
-//        public RespListUsers() {
-//
-//            this.id = id;
-//            this.name = name;
-//            this.email = email;
-//            this.outletName = outlet_name;
-//            this.idMstBranch = id_mst_branch;
-//            this.branchName = branch_name;
-//            this.idCmsPrivileges = id_cms_privileges;
-//            this.privilegesName = privileges_name;
-//            this.status = status;
-//
-//        }
-
-//      private boolean isChecked = false;
-//
-//      public boolean isChecked() {
-//        return isChecked;
-//      }
-//
-//      public void setChecked(boolean checked) {
-//        isChecked = checked;
-//      }
 
         @SerializedName("id")
         @Expose
@@ -122,6 +138,8 @@ public class RespUsers {
         @SerializedName("status")
         @Expose
         private String status;
+
+
 
         public Integer getId() {
             return id;

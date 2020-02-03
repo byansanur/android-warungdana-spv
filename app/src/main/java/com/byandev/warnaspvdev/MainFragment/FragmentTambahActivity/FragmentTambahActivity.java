@@ -105,6 +105,8 @@ public class FragmentTambahActivity extends Fragment implements View.OnClickList
     clickDialog.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+//        Intent a = new Intent(context, ActivityListUserSelect.class);
+//        startActivityForResult(a);
         startActivity(new Intent(context, ActivityListUserSelect.class)
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
         getActivity().finish();
@@ -135,6 +137,9 @@ public class FragmentTambahActivity extends Fragment implements View.OnClickList
 
 
     return view;
+  }
+
+  private void startActivityForResult(Intent a) {
   }
 
   private void setUpGeoCode() {
@@ -346,7 +351,7 @@ public class FragmentTambahActivity extends Fragment implements View.OnClickList
     location = LocationServices.FusedLocationApi.getLastLocation(
         mGoogleApiClient);
     if (location != null) {
-      Toast.makeText(context," ", Toast.LENGTH_LONG).show();
+//      Toast.makeText(context," ", Toast.LENGTH_LONG).show();
     }
   }
 

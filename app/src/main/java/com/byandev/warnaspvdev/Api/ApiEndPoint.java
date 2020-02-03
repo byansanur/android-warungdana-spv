@@ -3,6 +3,7 @@ package com.byandev.warnaspvdev.Api;
 import android.content.Intent;
 
 import com.byandev.warnaspvdev.Response.Login;
+import com.byandev.warnaspvdev.Response.RepKpiOutlet;
 import com.byandev.warnaspvdev.Response.RespActivityList;
 import com.byandev.warnaspvdev.Response.RespActivityPost;
 import com.byandev.warnaspvdev.Response.RespActivityStatus;
@@ -176,5 +177,11 @@ public interface ApiEndPoint {
     @GET("list_activity")
     Call<RespActivityList> getListActivityHome(@Query("id_mst_branch") Integer idMstBranch,
                                                @Query("limit") Integer limit,
-                                               @Query("offset") Integer offset);
+                                               @Query("offset") Integer offset,
+                                               @Query("created_at") String createdAt);
+
+    @GET("bian_kpi_outled_lead")
+  Call<RepKpiOutlet> listOutletKpi(@Query("id_mst_branch") Integer idMstBranch,
+                                   @Query("limit") Integer limit,
+                                   @Query("offset") Integer offset);
 }

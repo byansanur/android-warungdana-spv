@@ -290,7 +290,7 @@ public class FHome extends Fragment {
   private void getDateNow(){
     final Calendar calendar = Calendar.getInstance();
 
-    String bulanDateNow = String.valueOf(calendar.get(Calendar.MONTH) + 1);
+    String bulanDateNow = String.valueOf(calendar.get(Integer.parseInt("0"+ Calendar.MONTH)) + 1);
     String tahunDateNow = String.valueOf(calendar.get(YEAR));
 
     if (!(!bulanDateNow.equals("10")
@@ -548,7 +548,8 @@ public class FHome extends Fragment {
     mApiService.getListActivityHome(
         sharedPrefManager.getSpBranchId(),
         limit,
-        0
+        0,
+        dateSekarang
     ).enqueue(new Callback<RespActivityList>() {
       @Override
       public void onResponse(Call<RespActivityList> call, Response<RespActivityList> response) {
@@ -573,7 +574,8 @@ public class FHome extends Fragment {
     mApiService.getListActivityHome(
         sharedPrefManager.getSpBranchId(),
         limit,
-        0
+        0,
+        dateSekarang
     ).enqueue(new Callback<RespActivityList>() {
       @Override
       public void onResponse(Call<RespActivityList> call, Response<RespActivityList> response) {
